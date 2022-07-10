@@ -14,24 +14,58 @@
 </head>
 
 <body>
-
-    <div class="container-fluid">
-        <div class="header">
-            <div class="card-body text-center bg-dark text-white">
+    <header>
+        <div class="container-fluid">
+            <div class="header">
+                <div class="card-body text-center bg-dark text-white">
                 <h1>Weather Dashboard</h1>
             </div>
         </div>
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Search for a city here!</h5>
-                <input class="form-control p-4 my-4" id="city-input" type="text" placeholder="Search...">
-                <button type="button" id="search-button" class="btn btn-success">Go!</button>
+    </header>
+
+<main>
+    <div class="m-4 p-4">
+        <div class="col-md-12">
+            <div class="row">
+
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Search for a city here!</h5>
+                        <input class="form-control p-4 my-4" id="city-input" type="text" placeholder="Search...">
+                        <button type="button" id="search-button" class="btn btn-success">Go!</button>
+                    </div>
+                </div>
+
+               
+                <div class="col-md-9">
+                    <div class="card mt-2">
+                        <div class="card-body">
+                            <div class="d-flex flex-row ">
+                                <h2 class="card-title align-self-center" id="main-city-name"></h2> 
+                            </div>
+                            <h6 class="card-subtitle text-muted" id="main-city-temp">Temperature: </h6>
+                            <h6 class="card-subtitle mt-3 text-muted" id="main-city-humidity">Humidity: </h6>
+                            <h6 class="card-subtitle mt-3 text-muted" id="main-city-wind">Wind Speed: </h6>
+                            <h6 class="card-subtitle mt-3 text-muted" id="main-city-uv">UV Index: <span id="uv-box" class="px-2 py-1 mb-1 text-light rounded font-weight-normal"></span></h6>
+                        </div>  
+                    </div>
+                    
+                    <div>
+                        <h2 class="card-title mt-3">5-Day Forecast:</h2>
+                        <div class="row justify-content-between" id="five-day">
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-</body>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<script src="assets/index.js"></script>
+</main>
 
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="assets/index.js"></script>
+    
+</body>
 </html>
