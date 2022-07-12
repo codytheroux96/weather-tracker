@@ -33,11 +33,11 @@ let submitHandler = () => {
 
 };
 
-let displayWeather = (response) => {
-    $("#main-city-name").text(response.name);
-    $("#main-city-temp").text(" " + response.temp.toFixed(1) + " degrees Farenheit");
-    $("#main-city-humidity").text(" " + response.humidity + "%");
-    $("#main-city-wind").text(" " + response.wind.speed.toFixed(1) + "mph");
+let displayWeather = (data) => {
+    $("#main-city-name").text(data.name);
+    $("#main-city-temp").text("Temperature: " + data.main.temp + " degrees Farenheit");
+    $("#main-city-humidity").text("Humidity: " + data.main.humidity + "%");
+    $("#main-city-wind").text("Wind Speed: " + data.wind.speed + "mph");
 };
 
 let saveSearchHistory = () => {
