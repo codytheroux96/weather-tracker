@@ -38,7 +38,12 @@ let displayWeather = (data) => {
     $("#main-city-temp").text("Temperature: " + data.main.temp + " degrees Farenheit");
     $("#main-city-humidity").text("Humidity: " + data.main.humidity + "%");
     $("#main-city-wind").text("Wind Speed: " + data.wind.speed + "mph");
-};
+
+    fetch(`https://api.openweathermap.org/data/2.5/uvi?lat=` + data.coord.lat + `&lon=`+ data.coord.lon + `&appid=` + apiKey)
+        .then(function(response) {
+            response.json().then(function(data) {
+                $("#main-city-uv").text("UV Index: " + data.value);
+        })})};
 
 let saveSearchHistory = () => {
 
