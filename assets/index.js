@@ -66,7 +66,7 @@ let saveSearchHistory = (cityName) => {
 };
 
 let renderSearchHistory = () => {
-    let loadSearchHistory = function() {
+    let loadSearchHistory = () => {
         searchHistory = JSON.parse(localStorage.getItem("previousWeatherHistory"));
         lastCitySearched = JSON.parse(localStorage.getItem("lastCitySearched"));
 
@@ -79,7 +79,7 @@ let renderSearchHistory = () => {
         }
     
         $("#search-history").empty();
-        for(i = 0 ; i < searchHistory.length ;i++) {
+        for(i = 0; i < searchHistory.length; i++) {
          $("#search-history").append("<a href='#' class='list-group-item list-group-item-action' id='" + searchHistory[i] + "'>" + searchHistory[i] + "</a>");
         }
     };
