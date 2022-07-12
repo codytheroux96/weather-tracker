@@ -5,8 +5,8 @@ let cityName = $("#city-input");
 let submitSearch = document.querySelector("#search-button");
 
 let getWeather = (cityName) => {
-  let apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey + "&units=imperial";
-  fetch(apiUrl)
+  //let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=` + cityName + `&appid=` + apiKey + `&units=imperial`;
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=` + cityName.val() + `&appid=` + apiKey + `&units=imperial`)
       .then(function(response) {
           if (response.ok) {
               response.json().then(function(data) {
@@ -33,11 +33,11 @@ let submitHandler = () => {
 
 };
 
-let displayWeather = (weatherData) => {
-    $("#main-city-name").text(weatherData.name);
-    $("#main-city-temp").text(" " + weatherData.main.temp.toFixed(1) + " degrees Farenheit");
-    $("#main-city-humidity").text(" " + weatherData.main.humidity + "%");
-    $("#main-city-wind").text(" " + weatherData.wind.speed.toFixed(1) + "mph");
+let displayWeather = (response) => {
+    $("#main-city-name").text(response.name);
+    $("#main-city-temp").text(" " + response.temp.toFixed(1) + " degrees Farenheit");
+    $("#main-city-humidity").text(" " + response.humidity + "%");
+    $("#main-city-wind").text(" " + response.wind.speed.toFixed(1) + "mph");
 };
 
 let saveSearchHistory = () => {
