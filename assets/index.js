@@ -1,7 +1,8 @@
 const apiKey = "878d6534085046fb87b959055bed3731";
 let searchHistory = [];
 let previousSearch = "";
-let cityName = $("#city-input").val();
+let cityName = $("#city-input");
+let submitSearch = document.querySelector("#search-button");
 
 let getWeather = (cityName) => {
   let apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey + "&units=imperial";
@@ -21,8 +22,8 @@ let getWeather = (cityName) => {
 };
 
 
-let submitHandler = (event) => {
-    event.preventDefault();
+let submitHandler = () => {
+    //event.preventDefault();
     if (cityName) {
         getWeather(cityName);
         $("#city-input").val("");
@@ -32,8 +33,11 @@ let submitHandler = (event) => {
 
 };
 
-let displayWeather = () => {
-
+let displayWeather = (weatherData) => {
+    $("#main-city-name").text(weatherData.name);
+    $("#main-city-temp").text(" " + weatherData.main.temp.toFixed(1) + " degrees Farenheit");
+    $("#main-city-humidity").text(" " + weatherData.main.humidity + "%");
+    $("#main-city-wind").text(" " + weatherData.wind.speed.toFixed(1) + "mph");
 };
 
 let saveSearchHistory = () => {
@@ -45,5 +49,4 @@ let renderSearchHistory = () => {
 };
 
 
-$("#search-button").on("click", submitHandler());
-
+submitSearch.addEventListener("click", submitHandler);
