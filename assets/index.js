@@ -1,11 +1,9 @@
 const apiKey = "878d6534085046fb87b959055bed3731";
 let searchHistory = [];
 let previousSearch = "";
-//let cityName = document.querySelector("#city-input");
 let submitSearch = document.querySelector("#search-button");
 
 let getWeather = (cityName) => {
-  //let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=` + cityName + `&appid=` + apiKey + `&units=imperial`;
   fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=` +
       cityName +
@@ -28,7 +26,6 @@ let getWeather = (cityName) => {
 };
 
 let submitHandler = () => {
-  //event.preventDefault();
   let cityName = $("#city-input").val();
   if (cityName) {
     getWeather(cityName);
@@ -82,7 +79,6 @@ let saveSearchHistory = (cityName) => {
 };
 
 let renderSearchHistory = () => {
-  //let loadSearchHistory = () => {
   searchHistory = JSON.parse(localStorage.getItem("previousWeatherHistory"));
   previousSearch = JSON.parse(localStorage.getItem("previousSearch"));
 
@@ -106,13 +102,12 @@ let renderSearchHistory = () => {
   }
 };
 
-//loadSearchHistory();
 renderSearchHistory();
 
 if (previousSearch != "") {
   getWeather(previousSearch);
 }
-//};
+
 
 submitSearch.addEventListener("click", submitHandler);
 
