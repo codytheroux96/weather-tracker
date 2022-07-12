@@ -43,15 +43,58 @@ let displayWeather = (data) => {
         .then(function(response) {
             response.json().then(function(data) {
                 $("#main-city-uv").text("UV Index: " + data.value);
-        })})};
+            })
+        }
+    )
 
-let saveSearchHistory = () => {
+    previousCitySearched = data.name;
+    saveSearchHistory(previousCitySearched);
+};
+
+
+let saveSearchHistory = (cityName) => {
+    if(!searchHistory.includes(cityName)){
+        searchHistory.push(cityName);
+        $("#search-history").append("<a href='#' class='list-group-item list-group-item-action' id='" + cityName + "'>" + cityName + "</a>")
+    } 
+
+    localStorage.setItem("previousWeatherHistory", JSON.stringify(previousCitySearched));
+    localStorage.setItem("lastCitySearched", JSON.stringify(previousCitySearched));
+
+    loadSearchHistory();
 
 };
 
 let renderSearchHistory = () => {
+    let loadSearchHistory = function() {
+        searchHistory = JSON.parse(localStorage.getItem("previousWeatherHistory"));
+        lastCitySearched = JSON.parse(localStorage.getItem("lastCitySearched"));
 
+        if (!searchHistory) {
+            searchHistory = []
+        }
+    
+        if (!lastCitySearched) {
+            lastCitySearched = ""
+        }
+    
+        $("#search-history").empty();
+        for(i = 0 ; i < searchHistory.length ;i++) {
+         $("#search-history").append("<a href='#' class='list-group-item list-group-item-action' id='" + searchHistory[i] + "'>" + searchHistory[i] + "</a>");
+        }
+    };
+    
+    loadSearchHistory();
+    
+    if (lastCitySearched != ""){
+        getCityWeather(lastCitySearched);
+    }
 };
 
 
 submitSearch.addEventListener("click", submitHandler);
+
+// $("#search-history").on("click", function(event){
+//     let previousCity = $(event.target).closest("a").attr("id");
+//     getCityWeather(previousCity);
+// });
