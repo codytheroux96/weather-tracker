@@ -1,12 +1,12 @@
 const apiKey = "878d6534085046fb87b959055bed3731";
 let searchHistory = [];
+//let cityName = $("#city-input");
 let previousSearch = "";
-let cityName = $("#city-input");
 let submitSearch = document.querySelector("#search-button");
 
 let getWeather = (cityName) => {
   //let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=` + cityName + `&appid=` + apiKey + `&units=imperial`;
-  fetch(`https://api.openweathermap.org/data/2.5/weather?q=` + cityName.val() + `&appid=` + apiKey + `&units=imperial`)
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=` + cityName + `&appid=` + apiKey + `&units=imperial`)
       .then(function(response) {
           if (response.ok) {
               response.json().then(function(data) {
@@ -47,8 +47,8 @@ let displayWeather = (data) => {
         }
     )
 
-    previousCitySearched = data.name;
-    saveSearchHistory(previousCitySearched);
+    previousSearch = data.name;
+    saveSearchHistory(data.name);
 };
 
 
@@ -58,24 +58,24 @@ let saveSearchHistory = (cityName) => {
         $("#search-history").append("<a href='#' class='list-group-item list-group-item-action' id='" + cityName + "'>" + cityName + "</a>")
     } 
 
-    localStorage.setItem("previousWeatherHistory", JSON.stringify(previousCitySearched));
-    localStorage.setItem("lastCitySearched", JSON.stringify(previousCitySearched));
+    localStorage.setItem("previousWeatherHistory", JSON.stringify(searchHistory));
+    localStorage.setItem("previousSearch", JSON.stringify(previousSearch));
 
-    loadSearchHistory();
+    renderSearchHistory();
 
 };
 
 let renderSearchHistory = () => {
-    let loadSearchHistory = () => {
+    //let loadSearchHistory = () => {
         searchHistory = JSON.parse(localStorage.getItem("previousWeatherHistory"));
-        lastCitySearched = JSON.parse(localStorage.getItem("lastCitySearched"));
+        previousSearch = JSON.parse(localStorage.getItem("previousSearch"));
 
         if (!searchHistory) {
             searchHistory = []
         }
     
-        if (!lastCitySearched) {
-            lastCitySearched = ""
+        if (!previousSearch) {
+            previousSearch = ""
         }
     
         $("#search-history").empty();
@@ -84,17 +84,18 @@ let renderSearchHistory = () => {
         }
     };
     
-    loadSearchHistory();
+    //loadSearchHistory();
+    renderSearchHistory();
     
-    if (lastCitySearched != ""){
-        getCityWeather(lastCitySearched);
+    if (previousSearch != ""){
+        getWeather(previousSearch);
     }
-};
+//};
 
 
 submitSearch.addEventListener("click", submitHandler);
 
-// $("#search-history").on("click", function(event){
-//     let previousCity = $(event.target).closest("a").attr("id");
-//     getCityWeather(previousCity);
-// });
+$("#search-history").on("click", function(event){
+    let lastSearch = $(event.target).closest("a").attr("id");
+    getWeather(lastSearch);
+});
