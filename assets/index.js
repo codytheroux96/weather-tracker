@@ -52,7 +52,15 @@ let displayWeather = (data) => {
       apiKey
   ).then(function (response) {
     response.json().then(function (data) {
-      $("#main-city-uv").text("UV Index: " + data.value);
+      $("#uv-box").text( data.value);
+
+      if (data.value <=3) {
+        $("#uv-box").css("background-color", "green")
+      } else if (data.value <=10 && data.value >3) {
+        $("#uv-box").css("background-color", "yellow") 
+      } else if (data.value > 10) {
+        $("#uv-box").css("background-color", "red")
+      }
     });
   });
 
