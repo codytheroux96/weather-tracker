@@ -3,6 +3,7 @@ let searchHistory = [];
 let previousSearch = "";
 let submitSearch = document.querySelector("#search-button");
 
+//function that will use the api to grab weather data about the chosen city the user inputs
 let getWeather = (cityName) => {
   fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=` +
@@ -25,6 +26,7 @@ let getWeather = (cityName) => {
     });
 };
 
+//submit function that takes the inputted city in the search bar
 let submitHandler = () => {
   let cityName = $("#city-input").val();
   if (cityName) {
@@ -35,6 +37,7 @@ let submitHandler = () => {
   }
 };
 
+//function that will display the weather from the chosen city
 let displayWeather = (data) => {
   $("#main-city-name").text(data.name);
   $("#main-city-temp").text(
@@ -57,17 +60,19 @@ let displayWeather = (data) => {
       if (data.value <=3) {
         $("#uv-box").css("background-color", "green")
       } else if (data.value <=10 && data.value >3) {
-        $("#uv-box").css("background-color", "yellow") 
+        $("#uv-box").css("background-color", "orange") 
       } else if (data.value > 10) {
         $("#uv-box").css("background-color", "red")
       }
     });
   });
-
+//takes information about the searched city, saves it to a variable called previousSearch and passes it through the saveSearchHistory function
   previousSearch = data.name;
   saveSearchHistory(data.name);
 };
 
+
+//this saves the previous city searched data in local storage
 let saveSearchHistory = (cityName) => {
   if (!searchHistory.includes(cityName)) {
     searchHistory.push(cityName);
@@ -86,6 +91,7 @@ let saveSearchHistory = (cityName) => {
   renderSearchHistory();
 };
 
+//this takes the previous search data in local history and allows it to display again when the user clicks on it in the side bar with saved city searches
 let renderSearchHistory = () => {
   searchHistory = JSON.parse(localStorage.getItem("previousWeatherHistory"));
   previousSearch = JSON.parse(localStorage.getItem("previousSearch"));
@@ -116,9 +122,9 @@ if (previousSearch != "") {
   getWeather(previousSearch);
 }
 
-
+//cllick event for the search button
 submitSearch.addEventListener("click", submitHandler);
-
+//this is the click event for when the user clicks on a previously searched city
 $("#search-history").on("click", function (event) {
   let lastSearch = $(event.target).closest("a").attr("id");
   getWeather(lastSearch);
